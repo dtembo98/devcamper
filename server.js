@@ -6,6 +6,8 @@ const connectDb = require('./config/db');
 //Routes files
 const bootcamps = require('./routes/bootcamps');
 const morgan = require('morgan');
+const errHandler = require('./middlewares/error');
+const errorHandler = require('./middlewares/error');
 
 //Load env vars
 
@@ -23,7 +25,7 @@ if (process.env.NODE_ENV === 'development') {
 //Mount routers
 
 app.use('/api/v1/bootcamps', bootcamps);
-
+app.use(errorHandler);
 const server = app.listen(PORT, () => {
   console.log(
     `server running in ${process.env.NODE_ENV} mode on port ${PORT}`.blue.bold
